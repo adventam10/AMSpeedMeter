@@ -15,6 +15,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var sView3: AMSpeedMeterView!
     
     private var timer:Timer?
+    private let speedMeterView = AMSpeedMeterView()
     
     override func viewDidLoad() {
         super.viewDidLoad()

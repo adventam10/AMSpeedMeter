@@ -1,6 +1,6 @@
 //
 //  AMSpeedMeterView.swift
-//  TestProject
+//  AMSpeedMeter, https://github.com/adventam10/AMSpeedMeter
 //
 //  Created by am10 on 2017/12/31.
 //  Copyright © 2017年 am10. All rights reserved.
@@ -8,16 +8,15 @@
 
 import UIKit
 
-/// 目盛りラベルの小数表示形式
-enum AMSMDecimalFormat {
-    case none // 小数なし
-    case first // 小数第一位まで
-    case second // 小数第二位まで
+public enum AMSMDecimalFormat {
+    case none
+    case first
+    case second
 }
 
-@IBDesignable class AMSpeedMeterView: UIView {
+@IBDesignable public class AMSpeedMeterView: UIView {
 
-    override var bounds: CGRect {
+    override public var bounds: CGRect {
         
         didSet {
             
@@ -25,56 +24,31 @@ enum AMSMDecimalFormat {
         }
     }
     
-    var decimalFormat:AMSMDecimalFormat = .none
+    public var decimalFormat:AMSMDecimalFormat = .none
     
-    @IBInspectable var maxValue:CGFloat = 100
+    @IBInspectable public var maxValue:CGFloat = 100
     
-    @IBInspectable var minValue:CGFloat = 0
+    @IBInspectable public var minValue:CGFloat = 0
     
-    @IBInspectable var numberOfValue:Int = 5
+    @IBInspectable public var numberOfValue:Int = 5
     
-    /// メーターの枠線の幅
-    @IBInspectable var meterBorderLineWidth:CGFloat = 5
+    @IBInspectable public var meterBorderLineWidth:CGFloat = 5
     
-    /// 値目盛りの太さ
-    @IBInspectable var valueIndexWidth:CGFloat = 2.0
+    @IBInspectable public var valueIndexWidth:CGFloat = 2.0
     
-    /// 針の太さ
-    @IBInspectable var valueHandWidth:CGFloat = 3.0
+    @IBInspectable public var valueHandWidth:CGFloat = 3.0
     
-    /// メーターの枠線の色
-    @IBInspectable var meterBorderLineColor:UIColor = UIColor.black
+    @IBInspectable public var meterBorderLineColor:UIColor = UIColor.black
     
-    /// メーターの色
-    @IBInspectable var meterColor:UIColor = UIColor.clear
+    @IBInspectable public var meterColor:UIColor = UIColor.clear
     
-    /// 針の色
-    @IBInspectable var valueHandColor:UIColor = UIColor.red
+    @IBInspectable public var valueHandColor:UIColor = UIColor.red
     
-    /// 値の文字色
-    @IBInspectable var valueLabelTextColor:UIColor = UIColor.black
+    @IBInspectable public var valueLabelTextColor:UIColor = UIColor.black
     
-    /// 値目盛りの色
-    @IBInspectable var valueIndexColor:UIColor = UIColor.black
+    @IBInspectable public var valueIndexColor:UIColor = UIColor.black
     
-    /// メーターの上下左右の余白
-    private let meterSpace:CGFloat = 10
-    
-    private let minAngle:Float = Float(Double.pi)
-    
-    private let maxAngle:Float = Float(Double.pi*2)
-    
-    private let meterView = UIView()
-    
-    private var drawLayer:CAShapeLayer?
-    
-    private var valueHandLayer:CAShapeLayer?
-    
-    private var startAngle:Float = Float(Double.pi)
-    
-    private var endAngle:Float = 0.0
-    
-    var currentValue:CGFloat = 0.0 {
+    public var currentValue:CGFloat = 0.0 {
         
         didSet {
             
@@ -92,9 +66,41 @@ enum AMSMDecimalFormat {
         }
     }
     
-    override func draw(_ rect: CGRect) {
+    private let meterSpace:CGFloat = 10
+    
+    private let minAngle:Float = Float(Double.pi)
+    
+    private let maxAngle:Float = Float(Double.pi*2)
+    
+    private let meterView = UIView()
+    
+    private var drawLayer:CAShapeLayer?
+    
+    private var valueHandLayer:CAShapeLayer?
+    
+    private var startAngle:Float = Float(Double.pi)
+    
+    private var endAngle:Float = 0.0
+    
+    override public func draw(_ rect: CGRect) {
         
         reloadMeter()
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        
+        super.init(coder:aDecoder)
+    }
+    
+    override public init(frame: CGRect) {
+        
+        super.init(frame: frame)
+        backgroundColor = UIColor.clear
+    }
+    
+    convenience init() {
+        
+        self.init(frame: CGRect.zero)
     }
     
     //MARK:Prepare
@@ -330,7 +336,7 @@ enum AMSMDecimalFormat {
         valueHandLayer = nil
     }
     
-    func reloadMeter() {
+    public func reloadMeter() {
         
         clear()
     

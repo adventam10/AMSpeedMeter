@@ -7,23 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0E9A089520036F6700DD65DB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9A089420036F6700DD65DB /* AppDelegate.swift */; };
-		0E9A089720036F6700DD65DB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9A089620036F6700DD65DB /* ViewController.swift */; };
+		0E475353201F1233002EA382 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E475351201F1233002EA382 /* AppDelegate.swift */; };
+		0E475354201F1233002EA382 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E475352201F1233002EA382 /* ViewController.swift */; };
+		0E475357201F1245002EA382 /* AMSpeedMeterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E475356201F1245002EA382 /* AMSpeedMeterView.swift */; };
 		0E9A089A20036F6700DD65DB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E9A089820036F6700DD65DB /* Main.storyboard */; };
 		0E9A089C20036F6700DD65DB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E9A089B20036F6700DD65DB /* Assets.xcassets */; };
 		0E9A089F20036F6700DD65DB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E9A089D20036F6700DD65DB /* LaunchScreen.storyboard */; };
-		0E9A08A820036FE500DD65DB /* AMSpeedMeterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9A08A720036FE500DD65DB /* AMSpeedMeterView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0E475351201F1233002EA382 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		0E475352201F1233002EA382 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		0E475356201F1245002EA382 /* AMSpeedMeterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AMSpeedMeterView.swift; sourceTree = "<group>"; };
 		0E9A089120036F6700DD65DB /* SampleAMSpeedMeter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SampleAMSpeedMeter.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		0E9A089420036F6700DD65DB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		0E9A089620036F6700DD65DB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		0E9A089920036F6700DD65DB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0E9A089B20036F6700DD65DB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0E9A089E20036F6700DD65DB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0E9A08A020036F6700DD65DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0E9A08A720036FE500DD65DB /* AMSpeedMeterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AMSpeedMeterView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,6 +37,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0E475350201F1233002EA382 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				0E475355201F1245002EA382 /* AMSpeedMeter */,
+				0E475351201F1233002EA382 /* AppDelegate.swift */,
+				0E475352201F1233002EA382 /* ViewController.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		0E475355201F1245002EA382 /* AMSpeedMeter */ = {
+			isa = PBXGroup;
+			children = (
+				0E475356201F1245002EA382 /* AMSpeedMeterView.swift */,
+			);
+			name = AMSpeedMeter;
+			path = ../../../AMSpeedMeter;
+			sourceTree = "<group>";
+		};
 		0E9A088820036F6700DD65DB = {
 			isa = PBXGroup;
 			children = (
@@ -56,23 +75,13 @@
 		0E9A089320036F6700DD65DB /* SampleAMSpeedMeter */ = {
 			isa = PBXGroup;
 			children = (
-				0E9A08A620036FE500DD65DB /* AMSpeedMeterView */,
-				0E9A089420036F6700DD65DB /* AppDelegate.swift */,
-				0E9A089620036F6700DD65DB /* ViewController.swift */,
+				0E475350201F1233002EA382 /* Classes */,
 				0E9A089820036F6700DD65DB /* Main.storyboard */,
 				0E9A089B20036F6700DD65DB /* Assets.xcassets */,
 				0E9A089D20036F6700DD65DB /* LaunchScreen.storyboard */,
 				0E9A08A020036F6700DD65DB /* Info.plist */,
 			);
 			path = SampleAMSpeedMeter;
-			sourceTree = "<group>";
-		};
-		0E9A08A620036FE500DD65DB /* AMSpeedMeterView */ = {
-			isa = PBXGroup;
-			children = (
-				0E9A08A720036FE500DD65DB /* AMSpeedMeterView.swift */,
-			);
-			path = AMSpeedMeterView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -107,7 +116,7 @@
 				TargetAttributes = {
 					0E9A089020036F6700DD65DB = {
 						CreatedOnToolsVersion = 9.2;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -147,9 +156,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0E9A089720036F6700DD65DB /* ViewController.swift in Sources */,
-				0E9A089520036F6700DD65DB /* AppDelegate.swift in Sources */,
-				0E9A08A820036FE500DD65DB /* AMSpeedMeterView.swift in Sources */,
+				0E475354201F1233002EA382 /* ViewController.swift in Sources */,
+				0E475353201F1233002EA382 /* AppDelegate.swift in Sources */,
+				0E475357201F1245002EA382 /* AMSpeedMeterView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -287,7 +296,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = SampleAMSpeedMeter/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -304,7 +313,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = SampleAMSpeedMeter/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
