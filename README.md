@@ -40,6 +40,13 @@ speedMeterView.currentValue = value
 
 ## Installation
 
+### CocoaPods
+
+Add this to your Podfile.
+```ogdl
+pod 'AMSpeedMeter'
+```
+
 ### Carthage
 
 Add this to your Cartfile.
