@@ -15,11 +15,8 @@ public enum AMSMDecimalFormat {
 }
 
 @IBDesignable public class AMSpeedMeterView: UIView {
-
     override public var bounds: CGRect {
-        
         didSet {
-            
             reloadMeter()
         }
     }
@@ -49,15 +46,10 @@ public enum AMSMDecimalFormat {
     @IBInspectable public var valueIndexColor:UIColor = UIColor.black
     
     public var currentValue:CGFloat = 0.0 {
-        
         didSet {
-            
             if currentValue < minValue {
-                
                 currentValue = minValue
-                
             } else if currentValue > maxValue {
-                
                 currentValue = maxValue
             }
             
@@ -83,29 +75,24 @@ public enum AMSMDecimalFormat {
     private var endAngle:Float = 0.0
     
     override public func draw(_ rect: CGRect) {
-        
         reloadMeter()
     }
     
     required public init?(coder aDecoder: NSCoder) {
-        
         super.init(coder:aDecoder)
     }
     
     override public init(frame: CGRect) {
-        
         super.init(frame: frame)
         backgroundColor = UIColor.clear
     }
     
     convenience init() {
-        
         self.init(frame: CGRect.zero)
     }
     
     //MARK:Prepare
     private func prepareMeterView() {
-        
         var length:CGFloat = (frame.width < frame.height) ? frame.width : frame.height
         length -= meterSpace * 2
         meterView.frame = CGRect(x: frame.width/2 - length/2,
@@ -117,10 +104,8 @@ public enum AMSMDecimalFormat {
     }
     
     private func prepareDrawLayer() {
-        
         drawLayer = CAShapeLayer()
         guard let drawLayer = drawLayer else {
-            
             return
         }
         
@@ -134,9 +119,7 @@ public enum AMSMDecimalFormat {
     }
     
     private func prepareValueIndexLayer() {
-        
         guard let drawLayer = drawLayer else {
-            
             return
         }
         
@@ -156,9 +139,7 @@ public enum AMSMDecimalFormat {
         
         // 中心から外への線描画
         for i in 0..<numberOfValue {
-            
             if i == numberOfValue-1 {
-                
                 angle = maxAngle
             }
             let point = CGPoint(x: centerPoint.x + radius * CGFloat(cosf(angle)),
@@ -176,7 +157,6 @@ public enum AMSMDecimalFormat {
     }
     
     private func prepareValueLabel() {
-        
         var angle:Float = minAngle
         let radius = meterView.frame.width/2
         let centerPoint = CGPoint(x: radius, y: radius)
@@ -189,9 +169,7 @@ public enum AMSMDecimalFormat {
         var value = minValue
         // 中心から外への線描画
         for i in 0..<numberOfValue {
-            
             if i == numberOfValue-1 {
-                
                 angle = maxAngle
                 value = maxValue
             }
@@ -201,16 +179,12 @@ public enum AMSMDecimalFormat {
             label.textColor = valueLabelTextColor
             
             switch decimalFormat {
-                
             case .none:
                 label.text = NSString(format: "%.0f", value) as String
-                break
             case .first:
                 label.text = NSString(format: "%.1f", value) as String
-                break
             case .second:
                 label.text = NSString(format: "%.2f", value) as String
-                break
             }
             
             label.font = adjustFont(rect: label.frame)
@@ -224,15 +198,9 @@ public enum AMSMDecimalFormat {
     }
     
     private func prepareValueHandLayer() {
-        
-        guard let drawLayer = drawLayer else {
-            
-            return
-        }
-        
         valueHandLayer = CAShapeLayer()
-        guard let valueHandLayer = valueHandLayer else {
-            
+        guard let drawLayer = drawLayer,
+            let valueHandLayer = valueHandLayer else {
             return
         }
         
@@ -259,18 +227,14 @@ public enum AMSMDecimalFormat {
     
     //MARK:Animation
     private func handAnimation() {
-        
         guard let valueHandLayer = valueHandLayer else {
-            
             return
         }
         
         CATransaction.begin()
         CATransaction.setCompletionBlock { [unowned self] in
-            
             let animation = valueHandLayer.animation(forKey: "rotateAnimation")
             if animation != nil {
-                
                 CATransaction.begin()
                 CATransaction.setValue(kCFBooleanTrue,
                                        forKey: kCATransactionDisableActions)
@@ -304,14 +268,10 @@ public enum AMSMDecimalFormat {
     
     //MARK:Calculate
     private func calculateAngle(value: CGFloat) -> Float {
-        
         var rate:Float = 0
         if minValue < 0 {
-            
             rate = Float((value - minValue) / (maxValue - minValue))
-            
         } else {
-            
             rate = Float(value / (maxValue - minValue))
         }
         
@@ -320,7 +280,6 @@ public enum AMSMDecimalFormat {
     }
     
     private func adjustFont(rect: CGRect) -> UIFont {
-        
         let length:CGFloat = (rect.width > rect.height) ? rect.height : rect.width
         let font = UIFont.systemFont(ofSize: length * 0.8)
         return font
@@ -328,7 +287,6 @@ public enum AMSMDecimalFormat {
     
     //MARK:Clear/Reload
     private func clear() {
-        
         meterView.subviews.forEach{$0.removeFromSuperview()}
         meterView.removeFromSuperview()
         drawLayer?.removeFromSuperlayer()
@@ -337,7 +295,6 @@ public enum AMSMDecimalFormat {
     }
     
     public func reloadMeter() {
-        
         clear()
     
         prepareMeterView()
