@@ -293,7 +293,7 @@ public enum AMSMDecimalFormat {
         }
        
         let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
-        rotationAnimation.fillMode = kCAFillModeForwards
+        rotationAnimation.fillMode = CAMediaTimingFillMode.forwards
         rotationAnimation.toValue = endAngle - startAngle
         rotationAnimation.duration = 0.2
         rotationAnimation.isRemovedOnCompletion = false
