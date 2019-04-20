@@ -137,7 +137,7 @@ public enum AMSMDecimalFormat {
         let path = UIBezierPath()
         let angleUnit = (numberOfValue > 0) ? (maxAngle-minAngle)/Float(numberOfValue-1) : 0.0
         
-        // 中心から外への線描画
+        // draw line (from center to out)
         for i in 0..<numberOfValue {
             if i == numberOfValue-1 {
                 angle = maxAngle
@@ -167,7 +167,7 @@ public enum AMSMDecimalFormat {
         let angleUnit = (numberOfValue > 0) ? (maxAngle-minAngle)/Float(numberOfValue-1) : 0.0
         let valueUnit = (numberOfValue > 0) ? (maxValue-minValue)/CGFloat(numberOfValue-1) : 0.0
         var value = minValue
-        // 中心から外への線描画
+        // draw line (from center to out)
         for i in 0..<numberOfValue {
             if i == numberOfValue-1 {
                 angle = maxAngle
