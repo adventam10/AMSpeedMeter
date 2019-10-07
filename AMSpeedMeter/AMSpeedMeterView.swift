@@ -21,31 +21,19 @@ public enum AMSMDecimalFormat {
         }
     }
     
-    public var decimalFormat:AMSMDecimalFormat = .none
-    
-    @IBInspectable public var maxValue:CGFloat = 100
-    
-    @IBInspectable public var minValue:CGFloat = 0
-    
-    @IBInspectable public var numberOfValue:Int = 5
-    
-    @IBInspectable public var meterBorderLineWidth:CGFloat = 5
-    
-    @IBInspectable public var valueIndexWidth:CGFloat = 2.0
-    
-    @IBInspectable public var valueHandWidth:CGFloat = 3.0
-    
-    @IBInspectable public var meterBorderLineColor:UIColor = UIColor.black
-    
-    @IBInspectable public var meterColor:UIColor = UIColor.clear
-    
-    @IBInspectable public var valueHandColor:UIColor = UIColor.red
-    
-    @IBInspectable public var valueLabelTextColor:UIColor = UIColor.black
-    
-    @IBInspectable public var valueIndexColor:UIColor = UIColor.black
-    
-    public var currentValue:CGFloat = 0.0 {
+    @IBInspectable public var maxValue: CGFloat = 100
+    @IBInspectable public var minValue: CGFloat = 0
+    @IBInspectable public var numberOfValue: Int = 5
+    @IBInspectable public var meterBorderLineWidth: CGFloat = 5
+    @IBInspectable public var valueIndexWidth: CGFloat = 2.0
+    @IBInspectable public var valueHandWidth: CGFloat = 3.0
+    @IBInspectable public var meterBorderLineColor: UIColor = .black
+    @IBInspectable public var meterColor: UIColor = .clear
+    @IBInspectable public var valueHandColor: UIColor = .red
+    @IBInspectable public var valueLabelTextColor: UIColor = .black
+    @IBInspectable public var valueIndexColor: UIColor = .black
+    public var decimalFormat: AMSMDecimalFormat = .none
+    public var currentValue: CGFloat = 0.0 {
         didSet {
             if currentValue < minValue {
                 currentValue = minValue
@@ -58,21 +46,14 @@ public enum AMSMDecimalFormat {
         }
     }
     
-    private let meterSpace:CGFloat = 10
-    
-    private let minAngle:Float = Float(Double.pi)
-    
-    private let maxAngle:Float = Float(Double.pi*2)
-    
+    private let meterSpace: CGFloat = 10
+    private let minAngle: Float = Float(Double.pi)
+    private let maxAngle: Float = Float(Double.pi*2)
     private let meterView = UIView()
-    
-    private var drawLayer:CAShapeLayer?
-    
-    private var valueHandLayer:CAShapeLayer?
-    
-    private var startAngle:Float = Float(Double.pi)
-    
-    private var endAngle:Float = 0.0
+    private var drawLayer: CAShapeLayer?
+    private var valueHandLayer: CAShapeLayer?
+    private var startAngle: Float = Float(Double.pi)
+    private var endAngle: Float = 0.0
     
     override public func draw(_ rect: CGRect) {
         reloadMeter()
@@ -84,22 +65,22 @@ public enum AMSMDecimalFormat {
     
     override public init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = UIColor.clear
+        backgroundColor = .clear
     }
     
     convenience init() {
-        self.init(frame: CGRect.zero)
+        self.init(frame: .zero)
     }
     
-    //MARK:Prepare
+    //MARK:- Prepare
     private func prepareMeterView() {
-        var length:CGFloat = (frame.width < frame.height) ? frame.width : frame.height
+        var length: CGFloat = (frame.width < frame.height) ? frame.width : frame.height
         length -= meterSpace * 2
         meterView.frame = CGRect(x: frame.width/2 - length/2,
                                  y: frame.height/2 - length/2,
                                  width: length,
                                  height: length)
-        meterView.backgroundColor = UIColor.clear
+        meterView.backgroundColor = .clear
         addSubview(meterView)
     }
     
@@ -129,7 +110,7 @@ public enum AMSMDecimalFormat {
         layer.strokeColor = valueIndexColor.cgColor
         layer.fillColor = UIColor.clear.cgColor
         
-        var angle:Float = minAngle
+        var angle: Float = minAngle
         let radius = meterView.frame.width/2
         let centerPoint = CGPoint(x: radius, y: radius)
         let smallRadius = radius - (radius/10 + meterBorderLineWidth)
@@ -157,7 +138,7 @@ public enum AMSMDecimalFormat {
     }
     
     private func prepareValueLabel() {
-        var angle:Float = minAngle
+        var angle: Float = minAngle
         let radius = meterView.frame.width/2
         let centerPoint = CGPoint(x: radius, y: radius)
         var smallRadius = radius - (radius/10 + meterBorderLineWidth)
@@ -209,7 +190,7 @@ public enum AMSMDecimalFormat {
         valueHandLayer.strokeColor = valueHandColor.cgColor
         valueHandLayer.fillColor = UIColor.clear.cgColor
         
-        let angle:Float = minAngle
+        let angle: Float = minAngle
         
         let radius = meterView.frame.width/2
         let length = radius * 0.8
@@ -225,7 +206,7 @@ public enum AMSMDecimalFormat {
         valueHandLayer.path = path.cgPath
     }
     
-    //MARK:Animation
+    //MARK:- Animation
     private func handAnimation() {
         guard let valueHandLayer = valueHandLayer else {
             return
@@ -266,26 +247,26 @@ public enum AMSMDecimalFormat {
         CATransaction.commit()
     }
     
-    //MARK:Calculate
+    //MARK:- Calculate
     private func calculateAngle(value: CGFloat) -> Float {
-        var rate:Float = 0
+        var rate: Float = 0
         if minValue < 0 {
             rate = Float((value - minValue) / (maxValue - minValue))
         } else {
             rate = Float(value / (maxValue - minValue))
         }
         
-        let angle:Float = (maxAngle - minAngle) * rate
+        let angle: Float = (maxAngle - minAngle) * rate
         return angle + minAngle
     }
     
     private func adjustFont(rect: CGRect) -> UIFont {
-        let length:CGFloat = (rect.width > rect.height) ? rect.height : rect.width
+        let length: CGFloat = (rect.width > rect.height) ? rect.height : rect.width
         let font = UIFont.systemFont(ofSize: length * 0.8)
         return font
     }
     
-    //MARK:Clear/Reload
+    //MARK:- Clear/Reload
     private func clear() {
         meterView.subviews.forEach{$0.removeFromSuperview()}
         meterView.removeFromSuperview()
