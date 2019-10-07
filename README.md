@@ -1,42 +1,63 @@
-# AMSpeedMeterView
+# AMSpeedMeter
 
-`AMSpeedMeterView` is a view can display the value at regular time intervals.
+![Pod Platform](https://img.shields.io/cocoapods/p/AMSpeedMeter.svg?style=flat)
+![Pod License](https://img.shields.io/cocoapods/l/AMSpeedMeter.svg?style=flat)
+[![Pod Version](https://img.shields.io/cocoapods/v/AMSpeedMeter.svg?style=flat)](http://cocoapods.org/pods/AMSpeedMeter)
+[![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+
+`AMSpeedMeter` is a view can display the value at regular time intervals.
 
 ## Demo
 
 ![speedmeter](https://user-images.githubusercontent.com/34936885/34904032-a3c3f6da-f880-11e7-99ea-094d83a89e14.gif)
 
-## Variety
-
-<img width="333" alt="speedmeter" src="https://user-images.githubusercontent.com/34936885/34904069-f9042ad4-f880-11e7-89ab-21122cf9afd9.png">
-
 ## Usage
 
 ```swift
 // property
-private let speedMeterView = AMSpeedMeterView()
+private var speedMeterView: AMSpeedMeterView!
 private var timer:Timer?
 
 override func viewDidLoad() {
-super.viewDidLoad()
+  super.viewDidLoad()
 
-// customize here
+  speedMeterView = AMSpeedMeterView(frame: view.bounds)
+  view.addSubview(speedMeterView)
 
-view.addSubview(speedMeterView)
-timer = Timer.scheduledTimer(timeInterval: 0.5,
-target: self,
-selector: #selector(self.timerAction(teimer:)),
-userInfo: nil,
-repeats: true)
+  // customize here
+
+  timer = Timer.scheduledTimer(timeInterval: 0.5, target: self,
+                               selector: #selector(self.timerAction(teimer:)),
+                               userInfo: nil, repeats: true)
 }
 
 /// Timer Action
 @objc func timerAction(teimer:Timer) {
-
-/// set CGFloat value
-speedMeterView.currentValue = value
+  /// set CGFloat value
+  speedMeterView.currentValue = value
 }
 ```
+
+### Customization
+`AMSpeedMeter` can be customized via the following properties.
+
+```swift
+@IBInspectable public var maxValue: CGFloat = 100
+@IBInspectable public var minValue: CGFloat = 0
+@IBInspectable public var numberOfValue: Int = 5
+@IBInspectable public var meterBorderLineWidth: CGFloat = 5
+@IBInspectable public var valueIndexWidth: CGFloat = 2.0
+@IBInspectable public var valueHandWidth: CGFloat = 3.0
+@IBInspectable public var meterBorderLineColor: UIColor = .black
+@IBInspectable public var meterColor: UIColor = .clear
+@IBInspectable public var valueHandColor: UIColor = .red
+@IBInspectable public var valueLabelTextColor: UIColor = .black
+@IBInspectable public var valueIndexColor: UIColor = .black
+public var decimalFormat: AMSMDecimalFormat = .none
+public var currentValue: CGFloat = 0.0
+```
+
+<img width="333" alt="speedmeter" src="https://user-images.githubusercontent.com/34936885/34904069-f9042ad4-f880-11e7-89ab-21122cf9afd9.png">
 
 ## Installation
 
