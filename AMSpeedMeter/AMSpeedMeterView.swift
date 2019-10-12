@@ -115,7 +115,6 @@ internal class AMSpeedMeterModel {
         }
     }
     
-    private let meterSpace: CGFloat = 10
     private let meterView = UIView()
     private let model = AMSpeedMeterModel()
     
@@ -150,8 +149,7 @@ internal class AMSpeedMeterModel {
     
     // MARK:- Prepare View
     private func prepareMeterView() {
-        var length = (frame.width < frame.height) ? frame.width : frame.height
-        length -= meterSpace * 2
+        let length = (frame.width < frame.height) ? frame.width : frame.height
         meterView.frame = CGRect(x: frame.width/2 - length/2,
                                  y: frame.height/2 - length/2,
                                  width: length,
