@@ -12,14 +12,20 @@ public enum AMSMDecimalFormat {
     case none
     case first
     case second
+    
+    func formattedValue(_ value: CGFloat) -> String {
+        switch self {
+        case .none:
+            return String(format: "%.0f", value)
+        case .first:
+            return String(format: "%.1f", value)
+        case .second:
+            return String(format: "%.2f", value)
+        }
+    }
 }
 
 @IBDesignable public class AMSpeedMeterView: UIView {
-    override public var bounds: CGRect {
-        didSet {
-            reloadMeter()
-        }
-    }
     
     @IBInspectable public var maxValue: CGFloat = 100
     @IBInspectable public var minValue: CGFloat = 0
@@ -46,14 +52,30 @@ public enum AMSMDecimalFormat {
         }
     }
     
+    override public var bounds: CGRect {
+        didSet {
+            reloadMeter()
+        }
+    }
+    
     private let meterSpace: CGFloat = 10
     private let minAngle: Float = Float(Double.pi)
     private let maxAngle: Float = Float(Double.pi*2)
     private let meterView = UIView()
+    
     private var drawLayer: CAShapeLayer?
     private var valueHandLayer: CAShapeLayer?
     private var startAngle: Float = Float(Double.pi)
     private var endAngle: Float = 0.0
+    private var radius: CGFloat {
+        return meterView.frame.width/2
+    }
+    private var meterCenter: CGPoint {
+        return .init(x: radius, y: radius)
+    }
+    private var handLength: CGFloat {
+        return radius * 0.8
+    }
     
     override public func draw(_ rect: CGRect) {
         reloadMeter()
@@ -72,9 +94,9 @@ public enum AMSMDecimalFormat {
         self.init(frame: .zero)
     }
     
-    //MARK:- Prepare
+    // MARK:- Prepare View
     private func prepareMeterView() {
-        var length: CGFloat = (frame.width < frame.height) ? frame.width : frame.height
+        var length = (frame.width < frame.height) ? frame.width : frame.height
         length -= meterSpace * 2
         meterView.frame = CGRect(x: frame.width/2 - length/2,
                                  y: frame.height/2 - length/2,
@@ -84,63 +106,8 @@ public enum AMSMDecimalFormat {
         addSubview(meterView)
     }
     
-    private func prepareDrawLayer() {
-        drawLayer = CAShapeLayer()
-        guard let drawLayer = drawLayer else {
-            return
-        }
-        
-        drawLayer.frame = meterView.bounds
-        meterView.layer.addSublayer(drawLayer)
-        drawLayer.cornerRadius = meterView.frame.width/2
-        drawLayer.masksToBounds = true
-        drawLayer.borderWidth = meterBorderLineWidth
-        drawLayer.borderColor = meterBorderLineColor.cgColor
-        drawLayer.backgroundColor = meterColor.cgColor
-    }
-    
-    private func prepareValueIndexLayer() {
-        guard let drawLayer = drawLayer else {
-            return
-        }
-        
-        let layer = CAShapeLayer()
-        layer.frame = drawLayer.bounds
-        drawLayer.addSublayer(layer)
-        layer.strokeColor = valueIndexColor.cgColor
-        layer.fillColor = UIColor.clear.cgColor
-        
-        var angle: Float = minAngle
-        let radius = meterView.frame.width/2
-        let centerPoint = CGPoint(x: radius, y: radius)
-        let smallRadius = radius - (radius/10 + meterBorderLineWidth)
-        
-        let path = UIBezierPath()
-        let angleUnit = (numberOfValue > 0) ? (maxAngle-minAngle)/Float(numberOfValue-1) : 0.0
-        
-        // draw line (from center to out)
-        for i in 0..<numberOfValue {
-            if i == numberOfValue-1 {
-                angle = maxAngle
-            }
-            let point = CGPoint(x: centerPoint.x + radius * CGFloat(cosf(angle)),
-                                y: centerPoint.y + radius * CGFloat(sinf(angle)))
-            path.move(to: point)
-            let point2 = CGPoint(x: centerPoint.x + smallRadius * CGFloat(cosf(angle)),
-                                 y: centerPoint.y + smallRadius * CGFloat(sinf(angle)))
-            path.addLine(to: point2)
-            
-            angle += angleUnit
-        }
-        
-        layer.lineWidth = valueIndexWidth
-        layer.path = path.cgPath
-    }
-    
     private func prepareValueLabel() {
-        var angle: Float = minAngle
-        let radius = meterView.frame.width/2
-        let centerPoint = CGPoint(x: radius, y: radius)
+        var angle = minAngle
         var smallRadius = radius - (radius/10 + meterBorderLineWidth)
         let length = radius/4
         smallRadius -= length/2
@@ -154,59 +121,90 @@ public enum AMSMDecimalFormat {
                 angle = maxAngle
                 value = maxValue
             }
-            let label = UILabel(frame: CGRect(x: 0, y: 0, width: length, height: length))
-            label.adjustsFontSizeToFitWidth = true
-            label.textAlignment = .center
+            let label = makeLabel(length: length)
             label.textColor = valueLabelTextColor
-            
-            switch decimalFormat {
-            case .none:
-                label.text = NSString(format: "%.0f", value) as String
-            case .first:
-                label.text = NSString(format: "%.1f", value) as String
-            case .second:
-                label.text = NSString(format: "%.2f", value) as String
-            }
-            
+            label.text = decimalFormat.formattedValue(value)
             label.font = adjustFont(rect: label.frame)
             meterView.addSubview(label)
-            let point = CGPoint(x: centerPoint.x + smallRadius * CGFloat(cosf(angle)),
-                                y: centerPoint.y + smallRadius * CGFloat(sinf(angle)))
-            label.center = point
+            label.center = CGPoint(x: meterCenter.x + smallRadius * CGFloat(cosf(angle)),
+                                   y: meterCenter.y + smallRadius * CGFloat(sinf(angle)))
             angle += angleUnit
             value += valueUnit
         }
     }
     
-    private func prepareValueHandLayer() {
-        valueHandLayer = CAShapeLayer()
-        guard let drawLayer = drawLayer,
-            let valueHandLayer = valueHandLayer else {
-            return
-        }
-        
-        valueHandLayer.frame = drawLayer.bounds
-        drawLayer.addSublayer(valueHandLayer)
-        valueHandLayer.strokeColor = valueHandColor.cgColor
-        valueHandLayer.fillColor = UIColor.clear.cgColor
-        
-        let angle: Float = minAngle
-        
-        let radius = meterView.frame.width/2
-        let length = radius * 0.8
-        let centerPoint = CGPoint(x: radius, y: radius)
-        
-        let path = UIBezierPath()
-        let point = CGPoint(x: centerPoint.x + length * CGFloat(cosf(angle)),
-                            y: centerPoint.y + length * CGFloat(sinf(angle)))
-        path.move(to: centerPoint)
-        path.addLine(to: point)
-        
-        valueHandLayer.lineWidth = valueHandWidth
-        valueHandLayer.path = path.cgPath
+    private func makeLabel(length: CGFloat) -> UILabel {
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: length, height: length))
+        label.adjustsFontSizeToFitWidth = true
+        label.textAlignment = .center
+        label.baselineAdjustment = .alignCenters
+        return label
     }
     
-    //MARK:- Animation
+    // MARK:- Make Layer
+    private func makeDrawLayer() -> CAShapeLayer {
+        let drawLayer = CAShapeLayer()
+        drawLayer.frame = meterView.bounds
+        drawLayer.cornerRadius = radius
+        drawLayer.masksToBounds = true
+        drawLayer.borderWidth = meterBorderLineWidth
+        drawLayer.borderColor = meterBorderLineColor.cgColor
+        drawLayer.backgroundColor = meterColor.cgColor
+        return drawLayer
+    }
+    
+    private func makeValueIndexLayer() -> CAShapeLayer {
+        let layer = CAShapeLayer()
+        layer.frame = drawLayer!.bounds
+        layer.strokeColor = valueIndexColor.cgColor
+        layer.fillColor = UIColor.clear.cgColor
+        layer.lineWidth = valueIndexWidth
+        
+        var angle = minAngle
+        let smallRadius = radius - (radius/10 + meterBorderLineWidth)
+        
+        let path = UIBezierPath()
+        let angleUnit = (numberOfValue > 0) ? (maxAngle-minAngle)/Float(numberOfValue-1) : 0.0
+        
+        // draw line (from center to out)
+        for i in 0..<numberOfValue {
+            if i == numberOfValue-1 {
+                angle = maxAngle
+            }
+            let start = CGPoint(x: meterCenter.x + radius * CGFloat(cosf(angle)),
+                                y: meterCenter.y + radius * CGFloat(sinf(angle)))
+            path.move(to: start)
+            let end = CGPoint(x: meterCenter.x + smallRadius * CGFloat(cosf(angle)),
+                              y: meterCenter.y + smallRadius * CGFloat(sinf(angle)))
+            path.addLine(to: end)
+            
+            angle += angleUnit
+        }
+        
+        layer.path = path.cgPath
+        return layer
+    }
+    
+    private func makeValueHandLayer() -> CAShapeLayer {
+        let valueHandLayer = CAShapeLayer()
+        valueHandLayer.frame = drawLayer!.bounds
+        valueHandLayer.strokeColor = valueHandColor.cgColor
+        valueHandLayer.fillColor = UIColor.clear.cgColor
+        valueHandLayer.lineWidth = valueHandWidth
+        valueHandLayer.path = makeHandPath(angle: minAngle).cgPath
+        return valueHandLayer
+    }
+    
+    private func makeHandPath(angle: Float) -> UIBezierPath {
+        let path = UIBezierPath()
+        let point = CGPoint(x: meterCenter.x + handLength * CGFloat(cosf(angle)),
+                            y: meterCenter.y + handLength * CGFloat(sinf(angle)))
+        path.move(to: meterCenter)
+        path.addLine(to: point)
+        return path
+    }
+    
+    // MARK:- Animation
     private func handAnimation() {
         guard let valueHandLayer = valueHandLayer else {
             return
@@ -219,26 +217,14 @@ public enum AMSMDecimalFormat {
                 CATransaction.begin()
                 CATransaction.setValue(kCFBooleanTrue,
                                        forKey: kCATransactionDisableActions)
-                
-                let radius = self.meterView.frame.width/2
-                let length = radius * 0.8
-                let centerPoint = CGPoint(x: radius, y: radius)
-                
-                let path = UIBezierPath()
-                let point = CGPoint(x: centerPoint.x + length * CGFloat(cosf(self.endAngle)),
-                                    y: centerPoint.y + length * CGFloat(sinf(self.endAngle)))
-                path.move(to: centerPoint)
-                path.addLine(to: point)
-                
                 valueHandLayer.removeAnimation(forKey: "rotateAnimation")
-                
-                valueHandLayer.path = path.cgPath
+                valueHandLayer.path = self.makeHandPath(angle: self.endAngle).cgPath
                 CATransaction.commit()
             }
         }
        
         let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
-        rotationAnimation.fillMode = CAMediaTimingFillMode.forwards
+        rotationAnimation.fillMode = .forwards
         rotationAnimation.toValue = endAngle - startAngle
         rotationAnimation.duration = 0.2
         rotationAnimation.isRemovedOnCompletion = false
@@ -247,7 +233,7 @@ public enum AMSMDecimalFormat {
         CATransaction.commit()
     }
     
-    //MARK:- Calculate
+    // MARK:- Calculate
     private func calculateAngle(value: CGFloat) -> Float {
         var rate: Float = 0
         if minValue < 0 {
@@ -261,14 +247,13 @@ public enum AMSMDecimalFormat {
     }
     
     private func adjustFont(rect: CGRect) -> UIFont {
-        let length: CGFloat = (rect.width > rect.height) ? rect.height : rect.width
-        let font = UIFont.systemFont(ofSize: length * 0.8)
-        return font
+        let length = (rect.width > rect.height) ? rect.height : rect.width
+        return .systemFont(ofSize: length * 0.8)
     }
     
-    //MARK:- Clear/Reload
+    // MARK:- Clear/Reload
     private func clear() {
-        meterView.subviews.forEach{$0.removeFromSuperview()}
+        meterView.subviews.forEach { $0.removeFromSuperview() }
         meterView.removeFromSuperview()
         drawLayer?.removeFromSuperlayer()
         drawLayer = nil
@@ -279,9 +264,15 @@ public enum AMSMDecimalFormat {
         clear()
     
         prepareMeterView()
-        prepareDrawLayer()
-        prepareValueIndexLayer()
+        
+        drawLayer = makeDrawLayer()
+        meterView.layer.addSublayer(drawLayer!)
+        
+        drawLayer!.addSublayer(makeValueIndexLayer())
+    
         prepareValueLabel()
-        prepareValueHandLayer()
+        
+        valueHandLayer = makeValueHandLayer()
+        drawLayer!.addSublayer(valueHandLayer!)
     }
 }
