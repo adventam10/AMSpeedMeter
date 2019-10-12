@@ -25,11 +25,68 @@ public enum AMSMDecimalFormat {
     }
 }
 
+internal class AMSpeedMeterModel {
+    
+    let minAngle: Float = Float(Double.pi)
+    let maxAngle: Float = Float(Double.pi*2)
+    
+    var numberOfValue: Int = 5
+    var maxValue: CGFloat = 100
+    var minValue: CGFloat = 0
+    var currentValue: CGFloat = 0.0
+    var startAngle: Float = Float(Double.pi)
+    var endAngle: Float = 0.0
+    var angleUnit: Float {
+        return (numberOfValue > 0) ? angleRange/Float(numberOfValue-1) : 0.0
+    }
+    var valueUnit: CGFloat {
+        return (numberOfValue > 0) ? valueRange/CGFloat(numberOfValue-1) : 0.0
+    }
+    
+    private var valueRange: CGFloat {
+        return maxValue - minValue
+    }
+    private var angleRange: Float {
+        return maxAngle - minAngle
+    }
+    
+    // MARK:- Calculate
+    func calculateAngle(value: CGFloat) -> Float {
+        let angle = angleRange * rate(value: value)
+        return angle + minAngle
+    }
+    
+    func adjustFont(rect: CGRect) -> UIFont {
+        let length = (rect.width > rect.height) ? rect.height : rect.width
+        return .systemFont(ofSize: length * 0.8)
+    }
+    
+    private func rate(value: CGFloat) -> Float {
+        if minValue < 0 {
+            return Float((value - minValue) / valueRange)
+        } else {
+            return Float(value / valueRange)
+        }
+    }
+}
+
 @IBDesignable public class AMSpeedMeterView: UIView {
     
-    @IBInspectable public var maxValue: CGFloat = 100
-    @IBInspectable public var minValue: CGFloat = 0
-    @IBInspectable public var numberOfValue: Int = 5
+    @IBInspectable public var maxValue: CGFloat = 100 {
+        didSet {
+            model.maxValue = maxValue
+        }
+    }
+    @IBInspectable public var minValue: CGFloat = 0 {
+        didSet {
+            model.minValue = minValue
+        }
+    }
+    @IBInspectable public var numberOfValue: Int = 5 {
+        didSet {
+            model.numberOfValue = numberOfValue
+        }
+    }
     @IBInspectable public var meterBorderLineWidth: CGFloat = 5
     @IBInspectable public var valueIndexWidth: CGFloat = 2.0
     @IBInspectable public var valueHandWidth: CGFloat = 3.0
@@ -46,8 +103,8 @@ public enum AMSMDecimalFormat {
             } else if currentValue > maxValue {
                 currentValue = maxValue
             }
-            
-            endAngle = calculateAngle(value: currentValue)
+            model.currentValue = currentValue
+            model.endAngle = model.calculateAngle(value: currentValue)
             handAnimation()
         }
     }
@@ -59,14 +116,11 @@ public enum AMSMDecimalFormat {
     }
     
     private let meterSpace: CGFloat = 10
-    private let minAngle: Float = Float(Double.pi)
-    private let maxAngle: Float = Float(Double.pi*2)
     private let meterView = UIView()
+    private let model = AMSpeedMeterModel()
     
     private var drawLayer: CAShapeLayer?
     private var valueHandLayer: CAShapeLayer?
-    private var startAngle: Float = Float(Double.pi)
-    private var endAngle: Float = 0.0
     private var radius: CGFloat {
         return meterView.frame.width/2
     }
@@ -107,29 +161,27 @@ public enum AMSMDecimalFormat {
     }
     
     private func prepareValueLabel() {
-        var angle = minAngle
+        var angle = model.minAngle
         var smallRadius = radius - (radius/10 + meterBorderLineWidth)
         let length = radius/4
         smallRadius -= length/2
         
-        let angleUnit = (numberOfValue > 0) ? (maxAngle-minAngle)/Float(numberOfValue-1) : 0.0
-        let valueUnit = (numberOfValue > 0) ? (maxValue-minValue)/CGFloat(numberOfValue-1) : 0.0
         var value = minValue
         // draw line (from center to out)
         for i in 0..<numberOfValue {
             if i == numberOfValue-1 {
-                angle = maxAngle
+                angle = model.maxAngle
                 value = maxValue
             }
             let label = makeLabel(length: length)
             label.textColor = valueLabelTextColor
             label.text = decimalFormat.formattedValue(value)
-            label.font = adjustFont(rect: label.frame)
+            label.font = model.adjustFont(rect: label.frame)
             meterView.addSubview(label)
             label.center = CGPoint(x: meterCenter.x + smallRadius * CGFloat(cosf(angle)),
                                    y: meterCenter.y + smallRadius * CGFloat(sinf(angle)))
-            angle += angleUnit
-            value += valueUnit
+            angle += model.angleUnit
+            value += model.valueUnit
         }
     }
     
@@ -160,16 +212,14 @@ public enum AMSMDecimalFormat {
         layer.fillColor = UIColor.clear.cgColor
         layer.lineWidth = valueIndexWidth
         
-        var angle = minAngle
+        var angle = model.minAngle
         let smallRadius = radius - (radius/10 + meterBorderLineWidth)
-        
         let path = UIBezierPath()
-        let angleUnit = (numberOfValue > 0) ? (maxAngle-minAngle)/Float(numberOfValue-1) : 0.0
         
         // draw line (from center to out)
         for i in 0..<numberOfValue {
             if i == numberOfValue-1 {
-                angle = maxAngle
+                angle = model.maxAngle
             }
             let start = CGPoint(x: meterCenter.x + radius * CGFloat(cosf(angle)),
                                 y: meterCenter.y + radius * CGFloat(sinf(angle)))
@@ -177,10 +227,8 @@ public enum AMSMDecimalFormat {
             let end = CGPoint(x: meterCenter.x + smallRadius * CGFloat(cosf(angle)),
                               y: meterCenter.y + smallRadius * CGFloat(sinf(angle)))
             path.addLine(to: end)
-            
-            angle += angleUnit
+            angle += model.angleUnit
         }
-        
         layer.path = path.cgPath
         return layer
     }
@@ -191,7 +239,7 @@ public enum AMSMDecimalFormat {
         valueHandLayer.strokeColor = valueHandColor.cgColor
         valueHandLayer.fillColor = UIColor.clear.cgColor
         valueHandLayer.lineWidth = valueHandWidth
-        valueHandLayer.path = makeHandPath(angle: minAngle).cgPath
+        valueHandLayer.path = makeHandPath(angle: model.minAngle).cgPath
         return valueHandLayer
     }
     
@@ -218,37 +266,19 @@ public enum AMSMDecimalFormat {
                 CATransaction.setValue(kCFBooleanTrue,
                                        forKey: kCATransactionDisableActions)
                 valueHandLayer.removeAnimation(forKey: "rotateAnimation")
-                valueHandLayer.path = self.makeHandPath(angle: self.endAngle).cgPath
+                valueHandLayer.path = self.makeHandPath(angle: self.model.endAngle).cgPath
                 CATransaction.commit()
             }
         }
        
         let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
         rotationAnimation.fillMode = .forwards
-        rotationAnimation.toValue = endAngle - startAngle
+        rotationAnimation.toValue = model.endAngle - model.startAngle
         rotationAnimation.duration = 0.2
         rotationAnimation.isRemovedOnCompletion = false
-        startAngle = endAngle
+        model.startAngle = model.endAngle
         valueHandLayer.add(rotationAnimation, forKey: "rotateAnimation")
         CATransaction.commit()
-    }
-    
-    // MARK:- Calculate
-    private func calculateAngle(value: CGFloat) -> Float {
-        var rate: Float = 0
-        if minValue < 0 {
-            rate = Float((value - minValue) / (maxValue - minValue))
-        } else {
-            rate = Float(value / (maxValue - minValue))
-        }
-        
-        let angle: Float = (maxAngle - minAngle) * rate
-        return angle + minAngle
-    }
-    
-    private func adjustFont(rect: CGRect) -> UIFont {
-        let length = (rect.width > rect.height) ? rect.height : rect.width
-        return .systemFont(ofSize: length * 0.8)
     }
     
     // MARK:- Clear/Reload
