@@ -19,6 +19,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        sView1.minValue = 100
+        sView1.maxValue = 200
         sView2.valueLabelFont = .boldSystemFont(ofSize: 10)
         sView2.decimalFormat = .first
         timer = Timer.scheduledTimer(timeInterval: 0.5,
@@ -29,7 +31,8 @@ class ViewController: UIViewController {
     }
 
     @objc func timerAction(teimer:Timer) {
-        sView1.currentValue = CGFloat.random(in: 0 ... 100)
+//        sView1.currentValue = CGFloat.random(in: 0 ... 100)
+        sView1.currentValue = CGFloat.random(in: 100 ... 200)
         sView2.currentValue = CGFloat.random(in: 0 ... 90)
         sView3.currentValue = CGFloat.random(in: -200 ... -100)
     }

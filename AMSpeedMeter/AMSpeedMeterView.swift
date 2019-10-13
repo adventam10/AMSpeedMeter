@@ -37,16 +37,20 @@ internal class AMSpeedMeterModel {
     var startAngle: Float = Float(Double.pi)
     var endAngle: Float = 0.0
     var angleUnit: Float {
-        return (numberOfValue > 0) ? angleRange/Float(numberOfValue-1) : 0.0
+        precondition(numberOfValue > 1, "numberOfValue is less than 2")
+        return angleRange/Float(numberOfValue-1)
     }
     var valueUnit: CGFloat {
-        return (numberOfValue > 0) ? valueRange/CGFloat(numberOfValue-1) : 0.0
+        precondition(numberOfValue > 1, "numberOfValue is less than 2")
+        return valueRange/CGFloat(numberOfValue-1)
     }
     
     private var valueRange: CGFloat {
+        precondition(maxValue > minValue, "maxValue is less than or equal to minValue")
         return maxValue - minValue
     }
     private var angleRange: Float {
+        precondition(maxAngle > minAngle, "maxAngle is less than or equal to minAngle")
         return maxAngle - minAngle
     }
     
@@ -57,11 +61,7 @@ internal class AMSpeedMeterModel {
     }
     
     private func rate(value: CGFloat) -> Float {
-        if minValue < 0 {
-            return Float((value - minValue) / valueRange)
-        } else {
-            return Float(value / valueRange)
-        }
+        return Float((value - minValue) / valueRange)
     }
 }
 

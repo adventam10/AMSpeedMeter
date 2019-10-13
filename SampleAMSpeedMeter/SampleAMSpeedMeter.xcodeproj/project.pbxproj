@@ -13,7 +13,18 @@
 		0E9A089A20036F6700DD65DB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E9A089820036F6700DD65DB /* Main.storyboard */; };
 		0E9A089C20036F6700DD65DB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E9A089B20036F6700DD65DB /* Assets.xcassets */; };
 		0E9A089F20036F6700DD65DB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E9A089D20036F6700DD65DB /* LaunchScreen.storyboard */; };
+		0EB3D6542352DA760065073C /* SampleAMSpeedMeterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB3D6532352DA760065073C /* SampleAMSpeedMeterTests.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		0EB3D6562352DA760065073C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0E9A088920036F6700DD65DB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0E9A089020036F6700DD65DB;
+			remoteInfo = SampleAMSpeedMeter;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		0E475351201F1233002EA382 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -24,10 +35,20 @@
 		0E9A089B20036F6700DD65DB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0E9A089E20036F6700DD65DB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0E9A08A020036F6700DD65DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0EB3D6512352DA760065073C /* SampleAMSpeedMeterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SampleAMSpeedMeterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0EB3D6532352DA760065073C /* SampleAMSpeedMeterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleAMSpeedMeterTests.swift; sourceTree = "<group>"; };
+		0EB3D6552352DA760065073C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		0E9A088E20036F6700DD65DB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0EB3D64E2352DA760065073C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -60,6 +81,7 @@
 			isa = PBXGroup;
 			children = (
 				0E9A089320036F6700DD65DB /* SampleAMSpeedMeter */,
+				0EB3D6522352DA760065073C /* SampleAMSpeedMeterTests */,
 				0E9A089220036F6700DD65DB /* Products */,
 			);
 			sourceTree = "<group>";
@@ -68,6 +90,7 @@
 			isa = PBXGroup;
 			children = (
 				0E9A089120036F6700DD65DB /* SampleAMSpeedMeter.app */,
+				0EB3D6512352DA760065073C /* SampleAMSpeedMeterTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -82,6 +105,15 @@
 				0E9A08A020036F6700DD65DB /* Info.plist */,
 			);
 			path = SampleAMSpeedMeter;
+			sourceTree = "<group>";
+		};
+		0EB3D6522352DA760065073C /* SampleAMSpeedMeterTests */ = {
+			isa = PBXGroup;
+			children = (
+				0EB3D6532352DA760065073C /* SampleAMSpeedMeterTests.swift */,
+				0EB3D6552352DA760065073C /* Info.plist */,
+			);
+			path = SampleAMSpeedMeterTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -104,13 +136,31 @@
 			productReference = 0E9A089120036F6700DD65DB /* SampleAMSpeedMeter.app */;
 			productType = "com.apple.product-type.application";
 		};
+		0EB3D6502352DA760065073C /* SampleAMSpeedMeterTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0EB3D65A2352DA760065073C /* Build configuration list for PBXNativeTarget "SampleAMSpeedMeterTests" */;
+			buildPhases = (
+				0EB3D64D2352DA760065073C /* Sources */,
+				0EB3D64E2352DA760065073C /* Frameworks */,
+				0EB3D64F2352DA760065073C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0EB3D6572352DA760065073C /* PBXTargetDependency */,
+			);
+			name = SampleAMSpeedMeterTests;
+			productName = SampleAMSpeedMeterTests;
+			productReference = 0EB3D6512352DA760065073C /* SampleAMSpeedMeterTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		0E9A088920036F6700DD65DB /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0920;
+				LastSwiftUpdateCheck = 1100;
 				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = am10;
 				TargetAttributes = {
@@ -118,6 +168,11 @@
 						CreatedOnToolsVersion = 9.2;
 						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
+					};
+					0EB3D6502352DA760065073C = {
+						CreatedOnToolsVersion = 11.0;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 0E9A089020036F6700DD65DB;
 					};
 				};
 			};
@@ -135,6 +190,7 @@
 			projectRoot = "";
 			targets = (
 				0E9A089020036F6700DD65DB /* SampleAMSpeedMeter */,
+				0EB3D6502352DA760065073C /* SampleAMSpeedMeterTests */,
 			);
 		};
 /* End PBXProject section */
@@ -147,6 +203,13 @@
 				0E9A089F20036F6700DD65DB /* LaunchScreen.storyboard in Resources */,
 				0E9A089C20036F6700DD65DB /* Assets.xcassets in Resources */,
 				0E9A089A20036F6700DD65DB /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0EB3D64F2352DA760065073C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -163,7 +226,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		0EB3D64D2352DA760065073C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0EB3D6542352DA760065073C /* SampleAMSpeedMeterTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		0EB3D6572352DA760065073C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0E9A089020036F6700DD65DB /* SampleAMSpeedMeter */;
+			targetProxy = 0EB3D6562352DA760065073C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		0E9A089820036F6700DD65DB /* Main.storyboard */ = {
@@ -330,6 +409,45 @@
 			};
 			name = Release;
 		};
+		0EB3D6582352DA760065073C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = H5QW7TLM9U;
+				INFOPLIST_FILE = SampleAMSpeedMeterTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = am10.SampleAMSpeedMeterTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SampleAMSpeedMeter.app/SampleAMSpeedMeter";
+			};
+			name = Debug;
+		};
+		0EB3D6592352DA760065073C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = H5QW7TLM9U;
+				INFOPLIST_FILE = SampleAMSpeedMeterTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = am10.SampleAMSpeedMeterTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SampleAMSpeedMeter.app/SampleAMSpeedMeter";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -347,6 +465,15 @@
 			buildConfigurations = (
 				0E9A08A420036F6700DD65DB /* Debug */,
 				0E9A08A520036F6700DD65DB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0EB3D65A2352DA760065073C /* Build configuration list for PBXNativeTarget "SampleAMSpeedMeterTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0EB3D6582352DA760065073C /* Debug */,
+				0EB3D6592352DA760065073C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
