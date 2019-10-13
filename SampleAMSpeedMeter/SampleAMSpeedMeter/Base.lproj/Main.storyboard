@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -19,76 +16,84 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r0e-Oo-p35" customClass="AMSpeedMeterView" customModule="SampleAMSpeedMeter" customModuleProvider="target">
-                                <rect key="frame" x="127.5" y="30" width="120" height="120"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="120" id="Dtv-ep-UaO"/>
-                                    <constraint firstAttribute="width" secondItem="r0e-Oo-p35" secondAttribute="height" multiplier="1:1" id="RpO-Ij-2WL"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cxZ-2S-JdG" customClass="AMSpeedMeterView" customModule="SampleAMSpeedMeter" customModuleProvider="target">
-                                <rect key="frame" x="112" y="258" width="150" height="150"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="150" id="Ltl-vg-vIJ"/>
-                                    <constraint firstAttribute="width" secondItem="cxZ-2S-JdG" secondAttribute="height" multiplier="1:1" id="cBq-3p-1ie"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="meterBorderLineColor">
-                                        <color key="value" red="0.15686274510000001" green="0.31764705879999999" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="meterColor">
-                                        <color key="value" red="0.0" green="1" blue="0.4481443007" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="valueHandColor">
-                                        <color key="value" red="1" green="1" blue="0.55294117649999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="valueLabelTextColor">
-                                        <color key="value" red="1" green="0.025295937550000001" blue="0.16108618750000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="valueIndexColor">
-                                        <color key="value" red="1" green="0.80392156859999997" blue="0.82352941180000006" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="numberOfValue">
-                                        <integer key="value" value="7"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="maxValue">
-                                        <real key="value" value="90"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v0y-US-ghG" customClass="AMSpeedMeterView" customModule="SampleAMSpeedMeter" customModuleProvider="target">
-                                <rect key="frame" x="87.5" y="457" width="200" height="200"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="v0y-US-ghG" secondAttribute="height" multiplier="1:1" id="E0X-1K-oLv"/>
-                                    <constraint firstAttribute="width" constant="200" id="tKW-JG-5DT"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="valueHandWidth">
-                                        <real key="value" value="10"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="meterBorderLineWidth">
-                                        <real key="value" value="10"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="maxValue">
-                                        <real key="value" value="-100"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="minValue">
-                                        <real key="value" value="-200"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="PHj-YT-N30">
+                                <rect key="frame" x="87.5" y="82.5" width="200" height="502"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r0e-Oo-p35" customClass="AMSpeedMeterView" customModule="SampleAMSpeedMeter" customModuleProvider="target">
+                                        <rect key="frame" x="40" y="0.0" width="120" height="120"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" relation="lessThanOrEqual" constant="120" id="Dtv-ep-UaO"/>
+                                            <constraint firstAttribute="width" secondItem="r0e-Oo-p35" secondAttribute="height" multiplier="1:1" id="RpO-Ij-2WL"/>
+                                            <constraint firstAttribute="height" priority="750" constant="120" id="piG-9F-VCV"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cxZ-2S-JdG" customClass="AMSpeedMeterView" customModule="SampleAMSpeedMeter" customModuleProvider="target">
+                                        <rect key="frame" x="25" y="136" width="150" height="150"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" priority="750" constant="150" id="G8g-xf-pIr"/>
+                                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="150" id="Ltl-vg-vIJ"/>
+                                            <constraint firstAttribute="width" secondItem="cxZ-2S-JdG" secondAttribute="height" multiplier="1:1" id="cBq-3p-1ie"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="meterBorderLineColor">
+                                                <color key="value" red="0.15686274510000001" green="0.31764705879999999" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="meterColor">
+                                                <color key="value" red="0.0" green="1" blue="0.4481443007" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="valueHandColor">
+                                                <color key="value" red="1" green="1" blue="0.55294117649999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="valueLabelTextColor">
+                                                <color key="value" red="1" green="0.025295937550000001" blue="0.16108618750000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="valueIndexColor">
+                                                <color key="value" red="1" green="0.80392156859999997" blue="0.82352941180000006" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="numberOfValue">
+                                                <integer key="value" value="7"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="maxValue">
+                                                <real key="value" value="90"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v0y-US-ghG" customClass="AMSpeedMeterView" customModule="SampleAMSpeedMeter" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="302" width="200" height="200"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="v0y-US-ghG" secondAttribute="height" multiplier="1:1" id="E0X-1K-oLv"/>
+                                            <constraint firstAttribute="height" priority="750" constant="200" id="J9x-nK-TJB"/>
+                                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="200" id="tKW-JG-5DT"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="valueHandWidth">
+                                                <real key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="meterBorderLineWidth">
+                                                <real key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="maxValue">
+                                                <real key="value" value="-100"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="minValue">
+                                                <real key="value" value="-200"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="r0e-Oo-p35" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="BQA-pf-CPD"/>
-                            <constraint firstItem="cxZ-2S-JdG" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Eqd-Cy-rem"/>
-                            <constraint firstItem="v0y-US-ghG" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Fbq-YT-8wV"/>
-                            <constraint firstItem="cxZ-2S-JdG" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="MTc-WO-1BN"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="v0y-US-ghG" secondAttribute="bottom" constant="10" id="glW-bR-GV1"/>
-                            <constraint firstItem="r0e-Oo-p35" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="sWw-pk-NFo"/>
+                            <constraint firstItem="PHj-YT-N30" firstAttribute="top" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="8" id="81M-YW-54e"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="PHj-YT-N30" secondAttribute="bottom" constant="8" id="BAT-58-mIl"/>
+                            <constraint firstItem="PHj-YT-N30" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="EcB-k6-3Q4"/>
+                            <constraint firstItem="PHj-YT-N30" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="IuE-rW-6Ku"/>
+                            <constraint firstItem="PHj-YT-N30" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Naz-Wq-1sI"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="PHj-YT-N30" secondAttribute="trailing" constant="8" id="vmD-ir-pJl"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -100,6 +105,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="138" y="133"/>
         </scene>
     </scenes>
 </document>
