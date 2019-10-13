@@ -56,11 +56,6 @@ internal class AMSpeedMeterModel {
         return angle + minAngle
     }
     
-    func adjustFont(rect: CGRect) -> UIFont {
-        let length = (rect.width > rect.height) ? rect.height : rect.width
-        return .systemFont(ofSize: length * 0.8)
-    }
-    
     private func rate(value: CGFloat) -> Float {
         if minValue < 0 {
             return Float((value - minValue) / valueRange)
@@ -95,14 +90,11 @@ internal class AMSpeedMeterModel {
     @IBInspectable public var valueHandColor: UIColor = .red
     @IBInspectable public var valueLabelTextColor: UIColor = .black
     @IBInspectable public var valueIndexColor: UIColor = .black
+    public var valueLabelFont: UIFont = .systemFont(ofSize: 15)
     public var decimalFormat: AMSMDecimalFormat = .none
     public var currentValue: CGFloat = 0.0 {
         didSet {
-            if currentValue < minValue {
-                currentValue = minValue
-            } else if currentValue > maxValue {
-                currentValue = maxValue
-            }
+            precondition(minValue <= currentValue && currentValue <= maxValue)
             model.currentValue = currentValue
             model.endAngle = model.calculateAngle(value: currentValue)
             handAnimation()
@@ -152,40 +144,45 @@ internal class AMSpeedMeterModel {
         let length = (frame.width < frame.height) ? frame.width : frame.height
         meterView.frame = CGRect(x: frame.width/2 - length/2,
                                  y: frame.height/2 - length/2,
-                                 width: length,
-                                 height: length)
+                                 width: length, height: length)
         meterView.backgroundColor = .clear
         addSubview(meterView)
     }
     
     private func prepareValueLabel() {
-        var angle = model.minAngle
-        var smallRadius = radius - (radius/10 + meterBorderLineWidth)
-        let length = radius/4
-        smallRadius -= length/2
-        
         var value = minValue
+        var labels = [UILabel]()
         // draw line (from center to out)
         for i in 0..<numberOfValue {
             if i == numberOfValue-1 {
-                angle = model.maxAngle
                 value = maxValue
             }
-            let label = makeLabel(length: length)
+            let label = makeLabel()
             label.textColor = valueLabelTextColor
+            label.font = valueLabelFont
             label.text = decimalFormat.formattedValue(value)
-            label.font = model.adjustFont(rect: label.frame)
+            label.sizeToFit()
             meterView.addSubview(label)
+            labels.append(label)
+            value += model.valueUnit
+        }
+        var angle = model.minAngle
+        var smallRadius = radius - (radius/10 + meterBorderLineWidth)
+        let maxWidthLabel = labels.sorted { $0.frame.width > $1.frame.width }.first!
+        smallRadius -= maxWidthLabel.frame.width/2
+        for i in 0..<numberOfValue {
+            if i == numberOfValue-1 {
+                angle = model.maxAngle
+            }
+            let label = labels[i]
             label.center = CGPoint(x: meterCenter.x + smallRadius * CGFloat(cosf(angle)),
                                    y: meterCenter.y + smallRadius * CGFloat(sinf(angle)))
             angle += model.angleUnit
-            value += model.valueUnit
         }
     }
     
-    private func makeLabel(length: CGFloat) -> UILabel {
-        let label = UILabel(frame: CGRect(x: 0, y: 0, width: length, height: length))
-        label.adjustsFontSizeToFitWidth = true
+    private func makeLabel() -> UILabel {
+        let label = UILabel(frame: .zero)
         label.textAlignment = .center
         label.baselineAdjustment = .alignCenters
         return label

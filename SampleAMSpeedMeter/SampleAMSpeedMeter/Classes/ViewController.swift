@@ -10,17 +10,16 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    @IBOutlet weak var sView1: AMSpeedMeterView!
-    @IBOutlet weak var sView2: AMSpeedMeterView!
-    @IBOutlet weak var sView3: AMSpeedMeterView!
+    @IBOutlet weak private var sView1: AMSpeedMeterView!
+    @IBOutlet weak private var sView2: AMSpeedMeterView!
+    @IBOutlet weak private var sView3: AMSpeedMeterView!
     
-    private var timer:Timer?
-    private let speedMeterView = AMSpeedMeterView()
-    
+    private var timer: Timer?
+  
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
+        sView2.valueLabelFont = .boldSystemFont(ofSize: 10)
         sView2.decimalFormat = .first
         timer = Timer.scheduledTimer(timeInterval: 0.5,
                                      target: self,
@@ -29,25 +28,10 @@ class ViewController: UIViewController {
                                      repeats: true)
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
     @objc func timerAction(teimer:Timer) {
-        
-        let value1 = CGFloat(arc4random() % 100)
-        sView1.currentValue = value1
-
-        let value2 = CGFloat(arc4random() % 90)
-        sView2.currentValue = value2
-
-        var value3 = CGFloat(arc4random() % 200)
-        if value3 < 100 {
-
-            value3 += 100
-        }
-        sView3.currentValue = -1.0*value3
+        sView1.currentValue = CGFloat.random(in: 0 ... 100)
+        sView2.currentValue = CGFloat.random(in: 0 ... 90)
+        sView3.currentValue = CGFloat.random(in: -200 ... -100)
     }
 }
 
