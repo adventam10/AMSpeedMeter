@@ -16,7 +16,7 @@
 ```swift
 // property
 private var speedMeterView: AMSpeedMeterView!
-private var timer:Timer?
+private var timer: Timer?
 
 override func viewDidLoad() {
   super.viewDidLoad()
@@ -32,7 +32,7 @@ override func viewDidLoad() {
 }
 
 /// Timer Action
-@objc func timerAction(teimer:Timer) {
+@objc func timerAction(teimer: Timer) {
   /// set CGFloat value
   speedMeterView.currentValue = value
 }
@@ -53,11 +53,12 @@ override func viewDidLoad() {
 @IBInspectable public var valueHandColor: UIColor = .red
 @IBInspectable public var valueLabelTextColor: UIColor = .black
 @IBInspectable public var valueIndexColor: UIColor = .black
+public var valueLabelFont: UIFont = .systemFont(ofSize: 15)
 public var decimalFormat: AMSMDecimalFormat = .none
 public var currentValue: CGFloat = 0.0
 ```
 
-<img width="333" alt="speedmeter" src="https://user-images.githubusercontent.com/34936885/34904069-f9042ad4-f880-11e7-89ab-21122cf9afd9.png">
+![speed](https://user-images.githubusercontent.com/34936885/66710713-e435b080-edb8-11e9-8107-9c6bacc8f8ae.png)
 
 ## Installation
 
