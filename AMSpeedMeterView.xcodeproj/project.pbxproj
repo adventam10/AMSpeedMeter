@@ -8,14 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		0E47534A201F11E2002EA382 /* AMSpeedMeterView.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E475348201F11E2002EA382 /* AMSpeedMeterView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0E47535A201F128F002EA382 /* AMSpeedMeterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E475359201F128F002EA382 /* AMSpeedMeterView.swift */; };
+		0EB234CC23548BE700442A85 /* AMSpeedMeterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB234CB23548BE700442A85 /* AMSpeedMeterView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0E475345201F11E2002EA382 /* AMSpeedMeterView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AMSpeedMeterView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E475348201F11E2002EA382 /* AMSpeedMeterView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AMSpeedMeterView.h; sourceTree = "<group>"; };
 		0E475349201F11E2002EA382 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0E475359201F128F002EA382 /* AMSpeedMeterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AMSpeedMeterView.swift; sourceTree = "<group>"; };
+		0EB234CB23548BE700442A85 /* AMSpeedMeterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AMSpeedMeterView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,7 +32,7 @@
 		0E47533B201F11E2002EA382 = {
 			isa = PBXGroup;
 			children = (
-				0E475358201F128F002EA382 /* AMSpeedMeter */,
+				0EB234CA23548BE700442A85 /* Source */,
 				0E475347201F11E2002EA382 /* AMSpeedMeterView */,
 				0E475346201F11E2002EA382 /* Products */,
 			);
@@ -55,12 +55,12 @@
 			path = AMSpeedMeterView;
 			sourceTree = "<group>";
 		};
-		0E475358201F128F002EA382 /* AMSpeedMeter */ = {
+		0EB234CA23548BE700442A85 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				0E475359201F128F002EA382 /* AMSpeedMeterView.swift */,
+				0EB234CB23548BE700442A85 /* AMSpeedMeterView.swift */,
 			);
-			path = AMSpeedMeter;
+			path = Source;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -144,7 +144,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0E47535A201F128F002EA382 /* AMSpeedMeterView.swift in Sources */,
+				0EB234CC23548BE700442A85 /* AMSpeedMeterView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
