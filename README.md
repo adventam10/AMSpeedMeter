@@ -4,6 +4,7 @@
 ![Pod License](https://img.shields.io/cocoapods/l/AMSpeedMeter.svg?style=flat)
 [![Pod Version](https://img.shields.io/cocoapods/v/AMSpeedMeter.svg?style=flat)](http://cocoapods.org/pods/AMSpeedMeter)
 [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![Swift Package Manager compatible](https://img.shields.io/badge/Swift%20Package%20Manager-compatible-brightgreen.svg)](https://github.com/apple/swift-package-manager)
 
 `AMSpeedMeter` is a view can display the value at regular time intervals.
 
@@ -65,6 +66,7 @@ public var currentValue: CGFloat = 0.0
 ### CocoaPods
 
 Add this to your Podfile.
+
 ```ogdl
 pod 'AMSpeedMeter'
 ```
